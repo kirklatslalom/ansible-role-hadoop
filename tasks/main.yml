@@ -1,6 +1,6 @@
 ---
 # Add a fast check to speed reconfiguration
-- stat: path=/opt/hadoop
+- ansible.builtin.stat: path=/opt/hadoop
   register: hadoop_installed
 
 - include: install.yml
