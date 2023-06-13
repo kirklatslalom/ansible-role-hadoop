@@ -1,12 +1,17 @@
 ---
 # Add a fast check to speed reconfiguration
-- ansible.builtin.stat: path=/opt/hadoop
+- name: Stat /opt/hadoop
+  ansible.builtin.stat:
+    path=/opt/hadoop
   register: hadoop_installed
 
-- include: install.yml
+- name: Include install.yml
+  ansible.builtin.import_tasks: install.yml
   when: not hadoop_installed.stat.exists
 
-- include: configure.yml
+- name: Include configure.yml
+  ansible.builtin.import_tasks: configure.yml
 
-- include: configure_users.yml
+- name: Include configure_users
+  ansible.builtin.import_tasks: configure_users.yml
   when: users_dict.values()

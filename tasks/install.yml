@@ -27,13 +27,6 @@
   when: "ansible_os_family == 'Debian'"
   become: true
 
-# RedHat related OSs
-- name: Yum install java
-  ansible.builtin.yum:
-    name: java-1.8.0-openjdk
-    state: present
-  when: "ansible_os_family == 'RedHat'"
-
 - name: Install requisites
   ansible.builtin.package:
     name:
@@ -81,7 +74,8 @@
 - name: Set JAVA_HOME in hadoop-env.sh in RH
   ansible.builtin.lineinfile:
     dest="{{ hadoop_home }}/etc/hadoop/hadoop-env.sh"
-    regexp=JAVA_HOME= line="export JAVA_HOME=/usr/lib/jvm/jre-1.8.0"
+    regexp=JAVA_HOME= 
+    line="export JAVA_HOME=/usr/lib/jvm/jre-1.8.0"
   when: "ansible_os_family == 'RedHat'"
 
 - name: Set JAVA_HOME in hadoop-env.sh Deb
